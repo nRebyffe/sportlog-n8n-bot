@@ -1,5 +1,5 @@
 const google_Gemini_Chat_Model = languageModel({ type: '@n8n/n8n-nodes-langchain.lmChatGoogleGemini', version: 1.2, config: { name: 'Google Gemini Chat Model', parameters: { options: {} }, credentials: { googlePalmApi: newCredential('SportLog (nrebyffe@eugenia.school.com)', 'uoF9WXKdVGpf0uV5') }, position: [448, 160] } });
-const google_Gemini_Chat_Model1 = languageModel({ type: '@n8n/n8n-nodes-langchain.lmChatGoogleGemini', version: 1.2, config: { name: 'Google Gemini Chat Model (1)', parameters: { options: {} }, credentials: { googlePalmApi: newCredential('SportLog (nrebyffe@eugenia.school.com)', 'uoF9WXKdVGpf0uV5') }, position: [1648, 272] } });
+const google_Gemini_Chat_Model_1 = languageModel({ type: '@n8n/n8n-nodes-langchain.lmChatGoogleGemini', version: 1.2, config: { name: 'Google Gemini Chat Model (1)', parameters: { options: {} }, credentials: { googlePalmApi: newCredential('SportLog (nrebyffe@eugenia.school.com)', 'uoF9WXKdVGpf0uV5') }, position: [1648, 272] } });
 
 const error_Trigger = trigger({
   type: 'n8n-nodes-base.errorTrigger',
@@ -34,15 +34,7 @@ const aI_Workout_Parser = node({
 const parse_Validate_JSON = node({
   type: 'n8n-nodes-base.code',
   version: 2,
-  config: { 
-    name: 'Parse Validate JSON', 
-    notes: 'Parse JSON from AI output and expand multiple sets into individual items.', 
-    notesInFlow: true, 
-    parameters: { 
-      jsCode: "const outputItems = [];\nfor (const item of $input.all()) {\n  let rawText = item.json.output || item.json.text || '';\n  rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();\n  try {\n    const parsedData = JSON.parse(rawText);\n    const sets = parsedData.sets || [];\n    if (sets.length > 0 && parsedData.intent === 'NEW_EXERCISE') {\n      for (const set of sets) {\n        outputItems.push({\n          json: {\n            ...item.json,\n            ...parsedData,\n            reps: set.reps,\n            load: set.load_value,\n            load_type: set.load_type,\n            rest_time: parsedData.rest_time || null,\n            sets: undefined\n          }\n        });\n      }\n    } else {\n      outputItems.push({\n        json: {\n          ...item.json,\n          ...parsedData\n        }\n      });\n    }\n  } catch (error) {\n    outputItems.push({\n      json: {\n        ...item.json,\n        intent: 'AMBIGUOUS',\n        clarification_question: 'Je n\'ai pas bien compris la saisie. Peux-tu reformuler ?'\n      }\n    });\n  }\n}\nreturn outputItems;"
-    } 
-  },
-  position: [800, -96]
+  config: { name: 'Parse Validate JSON', parameters: { jsCode: 'const outputItems = [];\nfor (const item of $input.all()) {\n  let rawText = item.json.output || item.json.text || \'\';\n  rawText = rawText.replace(/```json/gi, \'\').replace(/```/g, \'\').trim();\n  try {\n    const parsedData = JSON.parse(rawText);\n    const sets = parsedData.sets || [];\n    if (sets.length > 0 && parsedData.intent === \'NEW_EXERCISE\') {\n      for (const set of sets) {\n        outputItems.push({\n          json: {\n            ...item.json,\n            ...parsedData,\n            reps: set.reps,\n            load: set.load_value,\n            load_type: set.load_type,\n            rest_time: parsedData.rest_time || null,\n            sets: undefined\n          }\n        });\n      }\n    } else {\n      outputItems.push({\n        json: {\n          ...item.json,\n          ...parsedData\n        }\n      });\n    }\n  } catch (error) {\n    outputItems.push({\n      json: {\n        ...item.json,\n        intent: \'AMBIGUOUS\',\n        clarification_question: \'Je n\'ai pas bien compris la saisie. Peux-tu reformuler ?\'\n      }\n    });\n  }\n}\nreturn outputItems;' }, position: [768, -80], notes: 'Parse JSON from AI output and expand multiple sets into individual items.' }
 });
 
 const intent_Router = node({
@@ -102,7 +94,7 @@ const aggregate_History = node({
 const aI_Strength_Coach = node({
   type: '@n8n/n8n-nodes-langchain.agent',
   version: 3.1,
-  config: { name: 'AI Strength Coach', parameters: { promptType: 'define', text: expr('Voici mon historique pour la séance : {{ JSON.stringify($json.history) }}'), options: { systemMessage: 'Tu es un préparateur physique expert en musculation et surcharge progressive.\nL\'utilisateur te fournit l\'historique de sa séance. Ton rôle est d\'analyser ses performances passées et de lui prescrire la stratégie exacte pour sa prochaine séance.\n\nPour chaque exercice présent dans l\'historique :\n1. Résume la dernière performance (Date, Séries, Répétitions, Charge, Ressenti).\n2. Applique la loi de la double progression :\n   - Si les séries étaient validées avec un ressenti facile/moyen : prescris +1 répétition ou +1 à 2kg d\'augmentation.\n   - Si l\'utilisateur était à l\'échec ou en difficulté : conseille de maintenir la charge pour valider toutes les répétitions proprement.\n3. Donne un mot d\'ordre clair et motivant pour la séance.\n\nFormat de réponse court, direct et impactant, prêt à être lu en arrivant à la salle de sport.\n\nPour mettre du texte en gras, utilise les balises HTML : <b>mon texte en gras</b>. N\'utilise jamais de syntaxe Markdown (** ou *).' } }, position: [1648, 112], subnodes: { model: google_Gemini_Chat_Model1 } }
+  config: { name: 'AI Strength Coach', parameters: { promptType: 'define', text: expr('Voici mon historique pour la séance : {{ JSON.stringify($json.history) }}'), options: { systemMessage: 'Tu es un préparateur physique expert en musculation et surcharge progressive.\nL\'utilisateur te fournit l\'historique de sa séance. Ton rôle est d\'analyser ses performances passées et de lui prescrire la stratégie exacte pour sa prochaine séance.\n\nPour chaque exercice présent dans l\'historique :\n1. Résume la dernière performance (Date, Séries, Répétitions, Charge, Ressenti).\n2. Applique la loi de la double progression :\n   - Si les séries étaient validées avec un ressenti facile/moyen : prescris +1 répétition ou +1 à 2kg d\'augmentation.\n   - Si l\'utilisateur était à l\'échec ou en difficulté : conseille de maintenir la charge pour valider toutes les répétitions proprement.\n3. Donne un mot d\'ordre clair et motivant pour la séance.\n\nFormat de réponse court, direct et impactant, prêt à être lu en arrivant à la salle de sport.\n\nPour mettre du texte en gras, utilise les balises HTML : <b>mon texte en gras</b>. N\'utilise jamais de syntaxe Markdown (** ou *).' } }, position: [1648, 112], subnodes: { model: google_Gemini_Chat_Model_1 } }
 });
 
 const query_Router = node({
@@ -129,7 +121,7 @@ const format_Clarification_Question = node({
   config: { name: 'Format Clarification Question', parameters: { assignments: { assignments: [{ id: 'f41651b3-18eb-4e66-8ffb-73c1d0d00ca6', name: 'replyText', value: expr('❓ {{ $json.clarification_question || "Peux-tu préciser le nombre de répétitions et la charge ?" }}'), type: 'string' }] }, options: {} }, position: [1760, -256] }
 });
 
-const wf = workflow('00z7ZkDqr9FuLYFU', 'SportLog Workout Bot', { description: 'Telegram workout logging bot handling multiple sets, rest times, and AI coaching.' });
+const wf = workflow('00z7ZkDqr9FuLYFU', 'SportLog Workout Bot', { executionOrder: 'v1', binaryMode: 'separate', availableInMCP: true });
 
 export default wf
   .add(error_Trigger)
