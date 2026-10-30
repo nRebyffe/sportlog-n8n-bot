@@ -15,8 +15,6 @@ comme tu le dirais à un pote. Le bot comprend, structure et enregistre.
 - **Corriger** — `en fait c'était 12 reps` met à jour la dernière entrée.
 - **Demander un conseil** — `conseil 2` renvoie un briefing de la séance 2 :
   charges et répétitions cibles, calculées sur ton historique (surcharge progressive).
-- **Demander une précision** — si une info manque, le bot pose une question
-  au lieu d'inventer.
 
 ## Comment ça marche
 
@@ -39,20 +37,6 @@ Telegram → n8n → Gemini (parsing JSON) → Data Table → réponse Telegram
 - **Google Gemini** — parsing et coaching
 - **Telegram Bot API** — interface
 - **n8n Data Table** — stockage
-
-## Structure du repo
-
-- `/Workflow` — le workflow n8n en TypeScript (SDK n8n, compatible `n8ncli`)
-- `/Skills` — les skills utilisés pour concevoir et relire le projet
-- `/Video` — la démo
-
-## Installation
-
-1. Importer `Workflow/workflow.ts` dans n8n (ou `n8ncli push`).
-2. Renseigner les credentials Telegram et Google Gemini.
-3. Créer la Data Table `workout_logs` : `exercise`, `reps`, `load`, `load_type`,
-   `session_date`, `session_type`, `rpe_feeling`.
-4. Activer le workflow et écrire au bot.
 
 ## Limites
 
