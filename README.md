@@ -4,9 +4,8 @@ Un bot Telegram qui transforme une phrase en séance de musculation enregistrée
 
 ## Le problème
 
-Noter ses séries dans une app de muscu prend plus de temps que la série elle-même.
-SportLog part d'une idée simple : tu écris ce que tu viens de faire, en français,
-comme tu le dirais à un pote. Le bot comprend, structure et enregistre.
+Noter ses séries dans une application de musculation prend plus de temps que la série elle-même.
+SportLog part d'une idée simple : tu écris ce que tu viens de faire, le bot comprend, structure et enregistre.
 
 ## Ce que ça fait
 
