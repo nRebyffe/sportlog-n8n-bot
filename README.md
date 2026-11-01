@@ -2,6 +2,10 @@
 
 Un bot Telegram qui transforme une phrase en séance de musculation enregistrée.
 
+## Démo
+
+[Voir la démo (6 min 52)](Video/demo.mp4)
+
 ## Le problème
 
 Noter ses séries dans une application de musculation prend plus de temps que la série elle-même.
