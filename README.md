@@ -4,7 +4,7 @@ Un bot Telegram qui transforme une phrase en séance de musculation enregistrée
 
 ## Démo
 
-[Voir la démo (6 min 52)](Video/demo.mp4)
+[Regarder la démo (6 min 52)](https://nrebyffe.github.io/sportlog-n8n-bot/) · [télécharger la vidéo](Video/demo.mp4)
 
 ## Le problème
 
