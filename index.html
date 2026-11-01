@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SportLog Workout Bot — Démo</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f6f7f9;
+    --fg: #14161a;
+    --muted: #5c6470;
+    --card: #ffffff;
+    --border: #e3e6ea;
+    --accent: #2f6f4f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1013;
+      --fg: #e8eaed;
+      --muted: #9aa2ad;
+      --card: #16191d;
+      --border: #262b31;
+      --accent: #7bd0a4;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+  }
+  main { max-width: 980px; margin: 0 auto; padding: 40px 20px 64px; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin-bottom: 12px; }
+  h1 { font-size: 1.5rem; margin: 0; letter-spacing: -0.01em; }
+  .tag { font-size: 0.8rem; color: var(--muted); }
+  p.lede { color: var(--muted); margin: 0 0 24px; max-width: 70ch; }
+  .player {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  video { display: block; width: 100%; height: auto; background: #000; }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 6px 20px;
+    padding: 12px 16px; font-size: 0.85rem;
+    color: var(--muted); border-top: 1px solid var(--border);
+  }
+  nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  a.btn {
+    display: inline-block; padding: 8px 14px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--card);
+    color: var(--fg); text-decoration: none; font-size: 0.9rem;
+  }
+  a.btn:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>SportLog Workout Bot</h1>
+    <span class="tag">Démo · 6 min 52 · 1080p</span>
+  </header>
+  <p class="lede">
+    Un bot Telegram qui transforme une phrase en séance de musculation enregistrée :
+    parsing Gemini, écriture en Data Table n8n, réponse unique.
+  </p>
+  <div class="player">
+    <video controls preload="metadata" poster="Video/poster.jpg" playsinline>
+      <source src="Video/demo.mp4" type="video/mp4">
+      Ton navigateur ne peut pas lire cette vidéo.
+      <a href="Video/demo.mp4">Télécharge-la</a>.
+    </video>
+    <div class="meta">
+      <span>n8n Cloud</span>
+      <span>Gemini</span>
+      <span>Telegram Bot API</span>
+      <span>n8n Data Table</span>
+    </div>
+  </div>
+  <nav>
+    <a class="btn" href="https://github.com/nRebyffe/sportlog-n8n-bot">Code source</a>
+    <a class="btn" href="https://github.com/nRebyffe/sportlog-n8n-bot/blob/main/Workflow/workflow.ts">Workflow</a>
+    <a class="btn" href="Video/demo.mp4">Télécharger la vidéo</a>
+  </nav>
+</main>
+</body>
+</html>
